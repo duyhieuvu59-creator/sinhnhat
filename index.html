@@ -10,11 +10,56 @@
       background: black;
     }
     canvas { display: block; }
+
+    /* Nút nhạc */
+    #musicBtn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #ff66cc;
+      color: white;
+      cursor: pointer;
+      z-index: 10;
+    }
+    #musicBtn:hover {
+      background: #ff3399;
+    }
   </style>
 </head>
 <body>
+  
+  <!-- Nút bật/tắt nhạc -->
+  <button id="musicBtn">Bật nhạc 🎵</button>
+
+  <!-- Nhạc nền -->
+  <audio id="bgm" loop>
+    <source src="music/song.mp3" type="audio/mpeg">
+  </audio>
+
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
   <script>
+    // 🔊 Xử lý nút nhạc
+    const btn = document.getElementById("musicBtn");
+    const bgm = document.getElementById("bgm");
+    let isPlaying = false;
+
+    btn.addEventListener("click", () => {
+      if (!isPlaying) {
+        bgm.play();
+        btn.textContent = "Tắt nhạc 🔇";
+        isPlaying = true;
+      } else {
+        bgm.pause();
+        btn.textContent = "Bật nhạc 🎵";
+        isPlaying = false;
+      }
+    });
+
+    // === Code 3D gốc của bạn ===
     let scene = new THREE.Scene();
     let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
     let renderer = new THREE.WebGLRenderer({antialias:true});
@@ -62,7 +107,7 @@
       texts.push(sprite);
     });
 
-    // 🎆 Pháo hoa nhiều màu
+    // 🎆 Pháo hoa
     let fireworks = [];
     function createFirework() {
       let geometry = new THREE.BufferGeometry();
@@ -71,12 +116,10 @@
       let velocities = [];
 
       for (let i = 0; i < particles; i++) {
-        // Vị trí ban đầu tại tâm
         positions[i*3] = 0;
         positions[i*3+1] = 0;
         positions[i*3+2] = 0;
 
-        // Vận tốc ngẫu nhiên để bay ra ngoài
         let angle = Math.random() * Math.PI * 2;
         let speed = Math.random() * 0.2 + 0.05;
         let vz = (Math.random()-0.5) * 0.1;
@@ -89,7 +132,6 @@
 
       geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-      // 🌈 Màu ngẫu nhiên
       const colors = [0xff4444, 0xffff66, 0x66ff66, 0x66ccff, 0xff99ff, 0xff9966];
       let color = colors[Math.floor(Math.random()*colors.length)];
       let material = new THREE.PointsMaterial({ color: color, size: 0.15, transparent: true });
