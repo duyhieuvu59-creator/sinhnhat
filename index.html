@@ -11,19 +11,24 @@
     }
     canvas { display: block; }
 
-    /* Nút nhạc */
+    /* 🔘 Nút nhạc tròn góc phải */
     #musicBtn {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 16px;
-      font-size: 16px;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
       border: none;
-      border-radius: 8px;
+      border-radius: 50%;
       background: #ff66cc;
       color: white;
+      font-size: 22px;
       cursor: pointer;
       z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
     #musicBtn:hover {
       background: #ff3399;
@@ -32,34 +37,40 @@
 </head>
 <body>
   
-  <!-- Nút bật/tắt nhạc -->
-  <button id="musicBtn">Bật nhạc 🎵</button>
+  <!-- 🔘 Nút nhạc -->
+  <button id="musicBtn">🎵</button>
 
-  <!-- Nhạc nền -->
+  <!-- 🎶 Nhạc nền -->
   <audio id="bgm" loop>
     <source src="music/song.mp3" type="audio/mpeg">
   </audio>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
   <script>
-    // 🔊 Xử lý nút nhạc
+    // 🔊 Xử lý nhạc
     const btn = document.getElementById("musicBtn");
     const bgm = document.getElementById("bgm");
     let isPlaying = false;
 
-    btn.addEventListener("click", () => {
+    function toggleMusic() {
       if (!isPlaying) {
-        bgm.play();
-        btn.textContent = "Tắt nhạc 🔇";
-        isPlaying = true;
+        bgm.play().then(() => {
+          btn.textContent = "🔇"; // đổi icon khi phát nhạc
+          isPlaying = true;
+        }).catch(err => {
+          console.log("Không phát được:", err);
+        });
       } else {
         bgm.pause();
-        btn.textContent = "Bật nhạc 🎵";
+        btn.textContent = "🎵"; // đổi lại icon khi tắt
         isPlaying = false;
       }
-    });
+    }
 
-    // === Code 3D gốc của bạn ===
+    btn.addEventListener("click", toggleMusic);
+    btn.addEventListener("touchstart", toggleMusic);
+
+    // === Code 3D gốc ===
     let scene = new THREE.Scene();
     let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
     let renderer = new THREE.WebGLRenderer({antialias:true});
@@ -144,7 +155,7 @@
     }
 
     function updateFireworks(){
-      fireworks.forEach((fw, idx)=>{
+      fireworks.forEach((fw, idx)=> {
         let positions = fw.obj.geometry.attributes.position.array;
         for (let i=0; i<fw.vel.length; i++){
           positions[i*3]   += fw.vel[i].x;
@@ -165,7 +176,7 @@
     camera.position.z = 5;
     function animate(){
       requestAnimationFrame(animate);
-      texts.forEach(t=>{
+      texts.forEach(t=> {
         t.position.z += 0.03; 
         if (t.position.z > 5) t.position.z = -100;
       });
@@ -175,7 +186,7 @@
     }
     animate();
 
-    window.addEventListener("resize", ()=>{
+    window.addEventListener("resize", ()=> {
       camera.aspect = window.innerWidth/window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
