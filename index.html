@@ -7,9 +7,332 @@
     body {
       margin: 0;
       overflow: hidden;
-      background: black;
+      background: linear-gradient(135deg, #ff6b9d, #c44faa, #8a3694);
+      font-family: 'Arial', sans-serif;
     }
     canvas { display: block; }
+
+    /* 🎁 Màn hình nhập mật khẩu */
+    #passwordScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff6b9d, #c44faa, #8a3694);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: sparkle 3s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { background: linear-gradient(135deg, #ff6b9d, #c44faa, #8a3694); }
+      50% { background: linear-gradient(135deg, #ffb3d9, #d97cc4, #a65bb8); }
+    }
+
+    .birthday-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      border: 3px solid #ff66cc;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .birthday-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 102, 204, 0.1) 50%, transparent 70%);
+      animation: shine 2s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .birthday-title {
+      font-size: 32px;
+      color: #ff3399;
+      margin-bottom: 10px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .birthday-subtitle {
+      font-size: 18px;
+      color: #8a3694;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 🔢 PIN Input Container */
+    .pin-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pin-digit {
+      width: 50px;
+      height: 60px;
+      border: 3px solid #ff66cc;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      outline: none;
+      background: linear-gradient(135deg, #fff, #f8f8f8);
+      box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      color: #8a3694;
+    }
+
+    .pin-digit:focus {
+      border-color: #ff3399;
+      box-shadow: 0 0 20px rgba(255, 102, 204, 0.5), inset 0 3px 10px rgba(0, 0, 0, 0.1);
+      transform: scale(1.1);
+      background: linear-gradient(135deg, #fff, #ffe6f5);
+    }
+
+    .pin-digit.filled {
+      background: linear-gradient(135deg, #ff66cc, #ff99dd);
+      color: white;
+      border-color: #ff3399;
+      box-shadow: 0 0 15px rgba(255, 102, 204, 0.4);
+    }
+
+    .pin-digit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .birthday-button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 18px;
+      background: linear-gradient(135deg, #ff66cc, #ff3399);
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .birthday-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transition: all 0.5s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .birthday-button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .birthday-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 51, 153, 0.4);
+    }
+
+    .birthday-decorations {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .balloon:nth-child(1) {
+      background: #ff6b9d;
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .balloon:nth-child(2) {
+      background: #66ccff;
+      top: 20%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    .balloon:nth-child(3) {
+      background: #ffff66;
+      bottom: 15%;
+      left: 8%;
+      animation-delay: 2s;
+    }
+
+    .balloon:nth-child(4) {
+      background: #66ff66;
+      bottom: 25%;
+      right: 5%;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff66cc;
+      animation: confetti-fall 3s linear infinite;
+    }
+
+    .confetti:nth-child(odd) {
+      background: #66ccff;
+      animation-duration: 2.5s;
+    }
+
+    .confetti:nth-child(even) {
+      background: #ffff66;
+      animation-duration: 3.5s;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* 🔢 Bàn phím số */
+    .number-pad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+      max-width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .number-btn {
+      width: 60px;
+      height: 60px;
+      border: 3px solid #ff66cc;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fff, #f8f8f8);
+      font-size: 22px;
+      font-weight: bold;
+      color: #8a3694;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .number-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 102, 204, 0.2);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .number-btn:hover::before {
+      width: 100px;
+      height: 100px;
+    }
+
+    .number-btn:hover {
+      transform: scale(1.1);
+      border-color: #ff3399;
+      box-shadow: 0 6px 20px rgba(255, 102, 204, 0.3);
+    }
+
+    .number-btn:active {
+      transform: scale(0.95);
+      background: linear-gradient(135deg, #ff66cc, #ff99dd);
+      color: white;
+    }
+
+    .number-btn.zero {
+      grid-column: 2;
+    }
+
+    .clear-btn {
+      background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+      border-color: #ff4757;
+      color: white;
+      font-size: 18px;
+    }
+
+    .clear-btn:hover {
+      background: linear-gradient(135deg, #ff4757, #ff6b6b);
+      border-color: #ff3742;
+    }
+
+    .error-message {
+      color: #ff3366;
+      font-size: 14px;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
 
     /* 🔘 Nút nhạc tròn góc phải */
     #musicBtn {
@@ -33,10 +356,70 @@
     #musicBtn:hover {
       background: #ff3399;
     }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
   
+  <!-- 🎁 Màn hình nhập mật khẩu -->
+  <div id="passwordScreen">
+    <div class="birthday-decorations">
+      <div class="balloon"></div>
+      <div class="balloon"></div>
+      <div class="balloon"></div>
+      <div class="balloon"></div>
+      <!-- Confetti rơi -->
+      <div class="confetti" style="left: 10%; animation-delay: 0s;"></div>
+      <div class="confetti" style="left: 20%; animation-delay: 0.5s;"></div>
+      <div class="confetti" style="left: 30%; animation-delay: 1s;"></div>
+      <div class="confetti" style="left: 40%; animation-delay: 1.5s;"></div>
+      <div class="confetti" style="left: 50%; animation-delay: 2s;"></div>
+      <div class="confetti" style="left: 60%; animation-delay: 2.5s;"></div>
+      <div class="confetti" style="left: 70%; animation-delay: 3s;"></div>
+      <div class="confetti" style="left: 80%; animation-delay: 3.5s;"></div>
+      <div class="confetti" style="left: 90%; animation-delay: 4s;"></div>
+    </div>
+    
+    <div class="birthday-container">
+      <h1 class="birthday-title">🎉 Happy Birthday! 🎂</h1>
+      <p class="birthday-subtitle">Nhập ngày sinh mthu để xem thiệp chúc mừng đặc biệt nhé! ✨</p>
+      
+      <div class="pin-container">
+        <input type="text" class="pin-digit" maxlength="1" id="pin1" oninput="handlePinInput(this, 'pin2')" onkeydown="handleBackspace(event, this, null)" readonly>
+        <input type="text" class="pin-digit" maxlength="1" id="pin2" oninput="handlePinInput(this, 'pin3')" onkeydown="handleBackspace(event, this, 'pin1')" readonly>
+        <input type="text" class="pin-digit" maxlength="1" id="pin3" oninput="handlePinInput(this, 'pin4')" onkeydown="handleBackspace(event, this, 'pin2')" readonly>
+        <input type="text" class="pin-digit" maxlength="1" id="pin4" oninput="handlePinInput(this, 'pin5')" onkeydown="handleBackspace(event, this, 'pin3')" readonly>
+        <input type="text" class="pin-digit" maxlength="1" id="pin5" oninput="handlePinInput(this, 'pin6')" onkeydown="handleBackspace(event, this, 'pin4')" readonly>
+        <input type="text" class="pin-digit" maxlength="1" id="pin6" oninput="handlePinInput(this, null)" onkeydown="handleBackspace(event, this, 'pin5')" readonly>
+      </div>
+
+      <!-- Bàn phím số -->
+      <div class="number-pad">
+        <button class="number-btn" onclick="inputNumber('1')">1</button>
+        <button class="number-btn" onclick="inputNumber('2')">2</button>
+        <button class="number-btn" onclick="inputNumber('3')">3</button>
+        <button class="number-btn" onclick="inputNumber('4')">4</button>
+        <button class="number-btn" onclick="inputNumber('5')">5</button>
+        <button class="number-btn" onclick="inputNumber('6')">6</button>
+        <button class="number-btn" onclick="inputNumber('7')">7</button>
+        <button class="number-btn" onclick="inputNumber('8')">8</button>
+        <button class="number-btn" onclick="inputNumber('9')">9</button>
+        <button class="number-btn clear-btn" onclick="clearPin()">⌫</button>
+        <button class="number-btn zero" onclick="inputNumber('0')">0</button>
+        <button class="number-btn clear-btn" onclick="clearAll()">C</button>
+      </div>
+      
+      <button onclick="checkPassword()" class="birthday-button">
+        🎁 Mở ở đây nèee 🎁
+      </button>
+      
+      <div id="errorMessage" class="error-message hidden"></div>
+    </div>
+  </div>
+
   <!-- 🔘 Nút nhạc -->
   <button id="musicBtn">🎵</button>
 
@@ -47,6 +430,151 @@
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
   <script>
+    // 🔢 Biến theo dõi vị trí hiện tại
+    let currentPinPosition = 1;
+
+    // 🔢 Hàm nhập số từ bàn phím ảo
+    function inputNumber(number) {
+      if (currentPinPosition <= 6) {
+        const currentInput = document.getElementById(`pin${currentPinPosition}`);
+        currentInput.value = number;
+        currentInput.classList.add('filled');
+        
+        // Hiệu ứng nhấn nút
+        currentInput.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+          currentInput.style.transform = '';
+        }, 150);
+        
+        currentPinPosition++;
+        
+        // Tự động kiểm tra khi nhập đủ 6 số
+        if (currentPinPosition > 6) {
+          setTimeout(checkPassword, 300);
+        }
+      }
+    }
+
+    // 🗑️ Xóa một số (backspace)
+    function clearPin() {
+      if (currentPinPosition > 1) {
+        currentPinPosition--;
+        const currentInput = document.getElementById(`pin${currentPinPosition}`);
+        currentInput.value = '';
+        currentInput.classList.remove('filled');
+        
+        // Hiệu ứng xóa
+        currentInput.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          currentInput.style.transform = '';
+        }, 150);
+      }
+    }
+
+    // 🧹 Xóa tất cả (clear all)
+    function clearAll() {
+      const pinInputs = ['pin1', 'pin2', 'pin3', 'pin4', 'pin5', 'pin6'];
+      pinInputs.forEach(pinId => {
+        const pinInput = document.getElementById(pinId);
+        pinInput.value = "";
+        pinInput.classList.remove("filled");
+      });
+      currentPinPosition = 1;
+      
+      // Hiệu ứng clear all
+      pinInputs.forEach((pinId, index) => {
+        setTimeout(() => {
+          const pinInput = document.getElementById(pinId);
+          pinInput.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            pinInput.style.transform = '';
+          }, 100);
+        }, index * 50);
+      });
+    }
+
+    // 🔢 Xử lý PIN input (đã được cập nhật)
+    function handlePinInput(currentInput, nextInputId) {
+      // Hàm này bây giờ chỉ để tương thích, logic chính ở inputNumber
+    }
+
+    function handleBackspace(event, currentInput, prevInputId) {
+      if (event.key === 'Backspace') {
+        clearPin();
+      } else if (event.key === 'Enter') {
+        checkPassword();
+      }
+      // Ngăn chặn input trực tiếp từ bàn phím
+      if (event.key >= '0' && event.key <= '9') {
+        event.preventDefault();
+        inputNumber(event.key);
+      }
+    }
+
+    // 🔐 Xử lý mật khẩu
+    const correctPassword = "270907";
+    
+    function checkPassword() {
+      // Lấy giá trị từ tất cả các ô PIN
+      const pin1 = document.getElementById("pin1").value;
+      const pin2 = document.getElementById("pin2").value;
+      const pin3 = document.getElementById("pin3").value;
+      const pin4 = document.getElementById("pin4").value;
+      const pin5 = document.getElementById("pin5").value;
+      const pin6 = document.getElementById("pin6").value;
+      
+      const enteredPin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
+      const errorMsg = document.getElementById("errorMessage");
+      
+      if (enteredPin.length < 6) {
+        errorMsg.textContent = "🔢 Vui lòng nhập đủ 6 chữ số! 😊";
+        errorMsg.classList.remove("hidden");
+        setTimeout(() => {
+          errorMsg.classList.add("hidden");
+        }, 3000);
+        return;
+      }
+      
+      if (enteredPin === correctPassword) {
+        // PIN đúng - ẩn màn hình password và hiện thiệp 3D
+        document.getElementById("passwordScreen").style.animation = "fadeOut 1s ease-out forwards";
+        setTimeout(() => {
+          document.getElementById("passwordScreen").style.display = "none";
+          startBirthdayCard();
+        }, 1000);
+      } else {
+        // Reset tất cả các ô PIN
+        clearAll();
+        const errorMsg = document.getElementById("errorMessage");
+        errorMsg.textContent = "❌ Mã PIN không đúng! Hãy thử lại nhé! 🤔";
+        errorMsg.classList.remove("hidden");
+        
+        // Animation shake cho các ô PIN
+        const pinInputs = ['pin1', 'pin2', 'pin3', 'pin4', 'pin5', 'pin6'];
+        pinInputs.forEach(pinId => {
+          const pinInput = document.getElementById(pinId);
+          pinInput.style.animation = "shake 0.5s ease-in-out";
+        });
+        
+        setTimeout(() => {
+          errorMsg.classList.add("hidden");
+          pinInputs.forEach(pinId => {
+            document.getElementById(pinId).style.animation = "";
+          });
+        }, 3000);
+      }
+    }
+
+    // CSS animation cho fadeOut
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes fadeOut {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0.8); }
+      }
+    `;
+    document.head.appendChild(style);
+
     // 🔊 Xử lý nhạc
     const btn = document.getElementById("musicBtn");
     const bgm = document.getElementById("bgm");
@@ -55,14 +583,14 @@
     function toggleMusic() {
       if (!isPlaying) {
         bgm.play().then(() => {
-          btn.textContent = "🔇"; // đổi icon khi phát nhạc
+          btn.textContent = "🔇";
           isPlaying = true;
         }).catch(err => {
           console.log("Không phát được:", err);
         });
       } else {
         bgm.pause();
-        btn.textContent = "🎵"; // đổi lại icon khi tắt
+        btn.textContent = "🎵";
         isPlaying = false;
       }
     }
@@ -70,127 +598,132 @@
     btn.addEventListener("click", toggleMusic);
     btn.addEventListener("touchstart", toggleMusic);
 
-    // === Code 3D gốc ===
-    let scene = new THREE.Scene();
-    let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    let renderer = new THREE.WebGLRenderer({antialias:true});
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    // === Hàm khởi tạo thiệp sinh nhật 3D ===
+    function startBirthdayCard() {
+      // Đổi background
+      document.body.style.background = "black";
+      
+      let scene = new THREE.Scene();
+      let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+      let renderer = new THREE.WebGLRenderer({antialias:true});
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
 
-    const messages = [
-      "🎉 Grattis på födelsedagen",
-      "🎂 Chúc mthu sinh nhật vui vẻ ^^",
-      "🥳 Tuổi mới thật nhiều niềm vui:3",
-      "🌸 Luôn hạnh phúc và thành công!",
-      "💝 Ngày càng xinh đẹp nhé 😍",
-      "✨ Happy Birthday! ✨"
-    ];
-    let texts = [];
+      const messages = [
+        "🎉 Grattis på födelsedagen",
+        "🎂 Chúc mừng sinh nhật vui vẻ ^^",
+        "🥳 Tuổi mới thật nhiều niềm vui:3",
+        "🌸 Luôn hạnh phúc và thành công!",
+        "💝 Ngày càng xinh đẹp nhé 😍",
+        "✨ Happy Birthday! ✨"
+      ];
+      let texts = [];
 
-    function createTextSprite(message, color="#ff66ff") {
-      let canvas = document.createElement("canvas");
-      canvas.width = 2048;
-      canvas.height = 512;
-      let ctx = canvas.getContext("2d");
-      ctx.font = "Bold 120px Arial";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.shadowColor = "rgba(255,255,255,0.9)";
-      ctx.shadowBlur = 25;
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = "white";
-      ctx.strokeText(message, canvas.width/2, canvas.height/2);
-      ctx.fillStyle = color;
-      ctx.fillText(message, canvas.width/2, canvas.height/2);
+      function createTextSprite(message, color="#ff66ff") {
+        let canvas = document.createElement("canvas");
+        canvas.width = 2048;
+        canvas.height = 512;
+        let ctx = canvas.getContext("2d");
+        ctx.font = "Bold 120px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.shadowColor = "rgba(255,255,255,0.9)";
+        ctx.shadowBlur = 25;
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = "white";
+        ctx.strokeText(message, canvas.width/2, canvas.height/2);
+        ctx.fillStyle = color;
+        ctx.fillText(message, canvas.width/2, canvas.height/2);
 
-      let texture = new THREE.CanvasTexture(canvas);
-      let material = new THREE.SpriteMaterial({ map: texture, transparent: true });
-      let sprite = new THREE.Sprite(material);
-      sprite.scale.set(canvas.width * 0.015, canvas.height * 0.015, 1);
-      sprite.center.set(0.5, 0.5);
-      return sprite;
-    }
+        let texture = new THREE.CanvasTexture(canvas);
+        let material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+        let sprite = new THREE.Sprite(material);
+        sprite.scale.set(canvas.width * 0.015, canvas.height * 0.015, 1);
+        sprite.center.set(0.5, 0.5);
+        return sprite;
+      }
 
-    messages.forEach(msg => {
-      let sprite = createTextSprite(msg);
-      sprite.position.set(0, (Math.random()-0.5)*8, -Math.random()*100 - 10);
-      scene.add(sprite);
-      texts.push(sprite);
-    });
+      messages.forEach(msg => {
+        let sprite = createTextSprite(msg);
+        sprite.position.set(0, (Math.random()-0.5)*8, -Math.random()*100 - 10);
+        scene.add(sprite);
+        texts.push(sprite);
+      });
 
-    // 🎆 Pháo hoa
-    let fireworks = [];
-    function createFirework() {
-      let geometry = new THREE.BufferGeometry();
-      let particles = 150;
-      let positions = new Float32Array(particles * 3);
-      let velocities = [];
+      // 🎆 Pháo hoa
+      let fireworks = [];
+      function createFirework() {
+        let geometry = new THREE.BufferGeometry();
+        let particles = 150;
+        let positions = new Float32Array(particles * 3);
+        let velocities = [];
 
-      for (let i = 0; i < particles; i++) {
-        positions[i*3] = 0;
-        positions[i*3+1] = 0;
-        positions[i*3+2] = 0;
+        for (let i = 0; i < particles; i++) {
+          positions[i*3] = 0;
+          positions[i*3+1] = 0;
+          positions[i*3+2] = 0;
 
-        let angle = Math.random() * Math.PI * 2;
-        let speed = Math.random() * 0.2 + 0.05;
-        let vz = (Math.random()-0.5) * 0.1;
-        velocities.push({
-          x: Math.cos(angle) * speed,
-          y: Math.sin(angle) * speed,
-          z: vz
+          let angle = Math.random() * Math.PI * 2;
+          let speed = Math.random() * 0.2 + 0.05;
+          let vz = (Math.random()-0.5) * 0.1;
+          velocities.push({
+            x: Math.cos(angle) * speed,
+            y: Math.sin(angle) * speed,
+            z: vz
+          });
+        }
+
+        geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+        const colors = [0xff4444, 0xffff66, 0x66ff66, 0x66ccff, 0xff99ff, 0xff9966];
+        let color = colors[Math.floor(Math.random()*colors.length)];
+        let material = new THREE.PointsMaterial({ color: color, size: 0.15, transparent: true });
+
+        let pts = new THREE.Points(geometry, material);
+        pts.position.set((Math.random()-0.5)*12, (Math.random()-0.5)*7, -20);
+
+        scene.add(pts);
+        fireworks.push({obj: pts, vel: velocities, life: 80});
+      }
+
+      function updateFireworks(){
+        fireworks.forEach((fw, idx)=> {
+          let positions = fw.obj.geometry.attributes.position.array;
+          for (let i=0; i<fw.vel.length; i++){
+            positions[i*3]   += fw.vel[i].x;
+            positions[i*3+1] += fw.vel[i].y;
+            positions[i*3+2] += fw.vel[i].z;
+          }
+          fw.obj.geometry.attributes.position.needsUpdate = true;
+
+          fw.life--;
+          fw.obj.material.opacity = fw.life / 80;
+          if (fw.life <= 0){
+            scene.remove(fw.obj);
+            fireworks.splice(idx, 1);
+          }
         });
       }
 
-      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      camera.position.z = 5;
+      function animate(){
+        requestAnimationFrame(animate);
+        texts.forEach(t=> {
+          t.position.z += 0.03; 
+          if (t.position.z > 5) t.position.z = -100;
+        });
+        if (Math.random() < 0.02) createFirework();
+        updateFireworks();
+        renderer.render(scene, camera);
+      }
+      animate();
 
-      const colors = [0xff4444, 0xffff66, 0x66ff66, 0x66ccff, 0xff99ff, 0xff9966];
-      let color = colors[Math.floor(Math.random()*colors.length)];
-      let material = new THREE.PointsMaterial({ color: color, size: 0.15, transparent: true });
-
-      let pts = new THREE.Points(geometry, material);
-      pts.position.set((Math.random()-0.5)*12, (Math.random()-0.5)*7, -20);
-
-      scene.add(pts);
-      fireworks.push({obj: pts, vel: velocities, life: 80});
-    }
-
-    function updateFireworks(){
-      fireworks.forEach((fw, idx)=> {
-        let positions = fw.obj.geometry.attributes.position.array;
-        for (let i=0; i<fw.vel.length; i++){
-          positions[i*3]   += fw.vel[i].x;
-          positions[i*3+1] += fw.vel[i].y;
-          positions[i*3+2] += fw.vel[i].z;
-        }
-        fw.obj.geometry.attributes.position.needsUpdate = true;
-
-        fw.life--;
-        fw.obj.material.opacity = fw.life / 80;
-        if (fw.life <= 0){
-          scene.remove(fw.obj);
-          fireworks.splice(idx, 1);
-        }
+      window.addEventListener("resize", ()=> {
+        camera.aspect = window.innerWidth/window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
       });
     }
-
-    camera.position.z = 5;
-    function animate(){
-      requestAnimationFrame(animate);
-      texts.forEach(t=> {
-        t.position.z += 0.03; 
-        if (t.position.z > 5) t.position.z = -100;
-      });
-      if (Math.random() < 0.02) createFirework();
-      updateFireworks();
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener("resize", ()=> {
-      camera.aspect = window.innerWidth/window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
   </script>
 </body>
 </html>
